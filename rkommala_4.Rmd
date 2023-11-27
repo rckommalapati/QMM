@@ -1,0 +1,73 @@
+---
+title: "Goal Programming Assignment"
+author: "Rahul Chakravarthy Kommalapati"
+date: "2023-11-26"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+***
+
+This notebook contains the code for Goal Programming Assignment 
+
+# Summary
+
+* Let x1, x2, and x3 be the production rates of Products 1, 2, and 3,
+respectively. Let y1p and y1n, respectively be the amount over (if any) and the amount under (if any) the employment level goal.Let y2p and y2n be the amount over (if any) and the amount under (if any)for the goal regarding earnings next year.
+Also the objective function is defined in terms of x1, x2, x3, y1p, y1n, y2p and y2n.
+
+* The Objective is to *Max 20x1 + 15x2 + 25x3 - 6y1p - 6y1n - 3y2n*. 
+
+*The constraints are
+  6x1 + 4x2 + 5x3 -y1p + y1n = 50;
+  8x1 + 7x2 + 5x3 -y2p + y2n = 75;
+
+*By solving the linear Programming problem we got 225 as the optimal value for the objective function.
+*The company is earning maximum profit by making 15 units of product 3 while meeting the employment level and earning goals, which indicates that the product which can earn maximum increased profits is product 3.
+*x1=0, x2=0, x3=15, y1p=25, y1n=0, y2p=0, y2n=0,Are the values of decision variables and these values can provide optimal solution for the goal programming problem.
+* A clear insight into the optimal production plan is provided on these summary, which maximizes profit besides meeting the employment and earning goals stated in the problem.
+
+***
+
+Now, loading the required libraries
+
+```{r}
+library(lpSolve)
+library(lpSolveAPI)
+```
+
+***
+**Problem Statement: **
+The Research and Development Division of the Emax Corporation has developed three new products. A decision now needs to be made on which mix of these products should be produced.Management wants primary consideration given to three factors: total profit, stability in the workforce, and achieving an increase in the company’s earnings next year from the $75 million achieved this year. In particular, using the units given in the following table, they want to
+
+Maximize Z = P - 6C - 3D,
+where
+P = total (discounted) profit over the life of the new products,
+C = change (in either direction) in the current level of employment,
+D = decrease (if any) in next year’s earnings from the current year’s level.
+
+****
+
+
+
+  
+```{r}
+x <- read.lp("GPA.lp")
+x
+```
+
+Solving the lp model
+
+```{r}
+solve(x)
+get.objective(x)        # get objective value
+get.variables(x)        # get values of decision variables
+get.constraints(x)      # get constraint RHS values
+```
+
